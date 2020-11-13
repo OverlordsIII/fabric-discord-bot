@@ -176,6 +176,15 @@ class TagsExtension(bot: ExtensibleBot) : Extension(bot) {
                 if (tags.isEmpty()) {
                     if (tagName.replace("?", "").isNotEmpty()) {
                         it.message.respond("No such tag: `$tagName`").deleteWithDelay(DELETE_DELAY)
+                        var currentName = tagName
+                        var i = 0
+                        while (i < tagName.length){
+                            i++
+                            currentName = currentName.substring(0, currentName.length - i)
+                            if (parser.getTags(currentName).isNotEmpty()){
+                                it.message.respond("You may be looking for: `??$currentName`")
+                            }
+                        }
                         it.message.deleteWithDelay(DELETE_DELAY)
                     }
 
